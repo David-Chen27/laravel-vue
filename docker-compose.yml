@@ -1,0 +1,63 @@
+version: '3.8'
+
+networks:
+    web-network:
+
+services:
+  nginx:
+    build: 
+      context: ./docker/nginx
+    # defines the port mapping
+    # corresponds to the "-p" flag
+    ports:
+      - "8080:80"
+    tty: true
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - web-network
+    #links:
+    #  #- "docker-mysql:mysql"
+    #  - "mariadb:mariadb"
+    #  - "reids:redis"
+
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+    tty: true
+    volumes:
+      - .:/var/www/html
+      - ./docker/php-fpm/conf:/usr/local/etc/php
+    networks:
+      - web-network
+
+#  docker-mysql:
+#    build:
+#      context: ./docker/mysql
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+#      MYSQL_DATABASE: '${DB_DATABASE}'
+
+  mariadb:
+    build:
+      context: ./docker/mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+    networks:
+      - web-network
+
+  redis:
+    build:
+      context: ./docker/redis
+    ports:
+      - "6379:6379"
+    networks:
+      - web-network
+

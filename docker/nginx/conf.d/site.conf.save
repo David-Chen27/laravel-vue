@@ -1,0 +1,17 @@
+/bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024server {
+    listen      80;
+    server_name localhost;
+    root        /var/www/html/public;
+    index index.php index.html index.htm index.nginx-debian.html;
+
+    location / {
+            # First attempt to serve request as file, then
+            # as directory, then fall back to displaying a 404.
+            #try_files $uri $uri/ =404;
+            try_files $uri $uri/ /index.php?$query_string;
+    }
+
+   location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass my_project_laravel_php-fpm_1:9000;
+        include fastcgi_params;
