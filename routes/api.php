@@ -15,15 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-
-//Route::middleware('auth:api')->get('item', [\App\Http\Controllers\Api\ItemController::class, 'index']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
-
-
-
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('me', [AuthController::class, 'me']);
