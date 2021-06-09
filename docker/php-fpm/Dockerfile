@@ -17,9 +17,9 @@ COPY ./composer.phar /usr/local/bin/composer
 RUN apt-get update && apt-get install -y git \
     && chmod 755 /usr/local/bin/composer
 
-RUN curl-fsSL https://deb.nodesource.com/setup_16.x | bash-\
-	  &&apt-get install-y nodejs
-
+RUN apt-get install curl \
+    && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs
 #RUN wget https://phar.phpunit.de/phpunit.phar \
 #    && chmod +x phpunit.phar \
 #    && mv phpunit.phar /usr/local/bin/phpunit
