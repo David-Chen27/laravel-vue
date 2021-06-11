@@ -24,6 +24,21 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+/*Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->name('dashboard');
+})->name('dashboard');*/
+
+//Route::middleware(['auth:sanctum', 'verified'])->get('/todolist', [\App\Http\Controllers\CommunityController::class, 'index'])->name('todolist');
+
+
+Route::group(["middleware" => ['auth:sanctum', 'verified']], function (){
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::get('/todolist', [\App\Http\Controllers\TodolistController::class, 'index'])->name('todolist.index');
+
+    Route::get('/community', [\App\Http\Controllers\CommunityController::class, 'index'])->name('community.index');
+});
+
