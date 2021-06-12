@@ -6,15 +6,15 @@
         </h2>
       </template>
       <div class="py-12">
-        <div class="flex flex-wrap-reverse mx-auto gap-4 justify-center">
-          <div v-for="item in communities" class="max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl center">
+        <div class="flex flex-wrap-reverse gap-4 justify-center">
+          <div v-for="item in communities" class="max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
             <div class="md:flex">
               <div class="md:flex-shrink-0">
-                <img class="h-48 w-full object-cover md:w-48" :src="item.image + '?random=' + item.id">
+                <img class="h-full w-full object-cover md:w-48" :src="item.image + '?random=' + item.id">
               </div>
               <div class="p-8">
                 <a href="#" @click="confirmApiTokenDeletion(item)" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{item.title}}</a>
-                <p class="mt-2 text-gray-500">{{item.description}}</p>
+                <p class="mt-2 text-gray-500 md:h-24 overflow-hidden">{{item.description}}</p>
               </div>
             </div>
           </div>
