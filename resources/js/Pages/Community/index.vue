@@ -13,7 +13,7 @@
                 <img class="h-full w-full object-cover md:w-48" :src="item.image + '?random=' + item.id">
               </div>
               <div class="p-8">
-                <a href="#" @click="confirmApiTokenDeletion(item)" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{item.title}}</a>
+                <a href="#" @click="showCommunityModal(item)" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{item.title}}</a>
                 <p class="mt-2 text-gray-500 md:h-24 overflow-hidden">{{item.description}}</p>
               </div>
             </div>
@@ -23,7 +23,7 @@
 
 
       <!-- Delete Token Confirmation Modal -->
-      <community-modal :communities="communities" :show="apiTokenBeingDeleted" @close="apiTokenBeingDeleted = null" />
+      <community-modal :show="showCommunityBeingModal" @close="showCommunityBeingModal = null" />
     </app-layout>
 </template>
 
@@ -38,20 +38,24 @@ export default {
     CommunityModal,
   },
   props: [
-    'communities'
+      "communities",
   ],
   data() {
     return {
-      apiTokenBeingDeleted: null,
+      showCommunityBeingModal: null,
     }
   },
   methods:{
-      confirmApiTokenDeletion(token) {
-        this.apiTokenBeingDeleted = token
+      showCommunityModal(item) {
+        this.showCommunityBeingModal = item
+
+        axios.post('/community', {
+          "type" : "count",
+          "id" : item.id
+        })
       }
   }
 }
-
 
 </script>
 

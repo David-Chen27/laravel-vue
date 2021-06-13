@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Statistics;
 use App\Models\Community;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -85,4 +86,22 @@ class CommunityController extends Controller
     {
         //
     }
+
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function statistics(Request $request)
+    {
+        event(
+            new Statistics(
+                Community::findOrFail($request->get('id')),
+                [$request->get('type')]
+            )
+        );
+
+        return response()->json(['message' => 'Success.'], 201);
+    }
+
 }

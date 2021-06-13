@@ -27,7 +27,7 @@ class CommunityFactory extends Factory
             'title' => $this->faker->text(50),
             'description' => $this->faker->text(),
             'content' => $this->faker->text(2000),
-            'image' => "https://picsum.photos/400/400"
+            'image' => "https://picsum.photos/500"
         ];
     }
 }

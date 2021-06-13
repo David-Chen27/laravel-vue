@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommunityController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,12 +25,6 @@ Route::get('/', function () {
     ]);
 });
 
-/*Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');*/
-
-//Route::middleware(['auth:sanctum', 'verified'])->get('/todolist', [\App\Http\Controllers\CommunityController::class, 'index'])->name('todolist');
-
 
 Route::group(["middleware" => ['auth:sanctum', 'verified']], function (){
 
@@ -37,8 +32,8 @@ Route::group(["middleware" => ['auth:sanctum', 'verified']], function (){
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/todolist', [\App\Http\Controllers\TodolistController::class, 'index'])->name('todolist.index');
+    Route::get('/community', [CommunityController::class, 'index'])->name('community.index');
 
-    Route::get('/community', [\App\Http\Controllers\CommunityController::class, 'index'])->name('community.index');
+    Route::middleware(['throttle:article'])->post('/community', [CommunityController::class, 'statistics']);
 });
 
