@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\TodoListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,5 +36,7 @@ Route::group(["middleware" => ['auth:sanctum', 'verified']], function (){
     Route::get('/community', [CommunityController::class, 'index'])->name('community.index');
 
     Route::middleware(['throttle:article'])->post('/community', [CommunityController::class, 'statistics']);
+
+    Route::get('/todolist', [TodoListController::class, 'index'])->name('todolist.index');
 });
 
