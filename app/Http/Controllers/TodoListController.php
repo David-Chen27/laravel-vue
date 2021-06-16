@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\r;
+use App\Models\TodoList;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Laravel\Jetstream\Jetstream;
 
 class TodoListController extends Controller
 {
@@ -14,19 +14,11 @@ class TodoListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('TodoList/index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Inertia::render('TodoList/Index', [
+            'Todos' => TodoList::where('user_id', $request->user()->id)->get()
+        ]);
     }
 
     /**
@@ -37,51 +29,44 @@ class TodoListController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'is_doned' => "boolean",
+            'description' => "required|string|max:255"
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\r  $r
-     * @return \Illuminate\Http\Response
-     */
-    public function show(r $r)
-    {
-        //
-    }
+        $request->merge(['user_id' => $request->user()->id]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\r  $r
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(r $r)
-    {
-        //
+        TodoList::create($request->all());
+
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, r $r)
+    public function update(Request $request, $id)
     {
-        //
+        $query = TodoList::where(['user_id' => $request->user()->id, 'id' => $id]);
+
+        ($query->count() <= 0) ?: $query->update(['is_doned' => $request->is_doned]);
+
+        return back(303);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function destroy(r $r)
+    public function destroy(Request $request, $id)
     {
-        //
+        $query = TodoList::where(['user_id' => $request->user()->id, 'id' => $id]);
+
+        ($query->count() <= 0) ?: $query->delete();
+
+        return back(303);
     }
 }

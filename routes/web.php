@@ -37,6 +37,6 @@ Route::group(["middleware" => ['auth:sanctum', 'verified']], function (){
 
     Route::middleware(['throttle:article'])->post('/community', [CommunityController::class, 'statistics']);
 
-    Route::get('/todolist', [TodoListController::class, 'index'])->name('todolist.index');
+    Route::resource('todolist', TodoListController::class)->only(['index', 'store', 'update', 'destroy']);
 });
 
