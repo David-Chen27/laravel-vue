@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto w-full flex flex-row my-2">
     <div class="flex-grow">
-      <input type="checkbox" class="ml-3.5 mr-2 mb-2 shadow-2xl rounded-full w-6 h-6 focus:ring-0 hover:border-blue-400 border-gray-100" @change="updateTodo($event)"><span class="text-2xl" :class="{'line-through': todo.is_doned}"> {{todo.description}} </span>
+      <input type="checkbox" class="ml-3.5 mr-2 mb-2 shadow-2xl rounded-full w-6 h-6 focus:ring-0 hover:border-blue-400 border-gray-100" :checked="todo.is_doned" @change="updateTodo($event)"><span class="text-2xl" :class="{'line-through': todo.is_doned}"> {{todo.description}} </span>
     </div>
     <div class="flex-grow-0 mx-4">
       <transition>
