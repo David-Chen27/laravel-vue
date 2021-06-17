@@ -51,7 +51,7 @@
 * 文章觀看點擊量功能
 * 針對點擊量設計防洗數量功能 (IP、帳號一天內對該篇文章只能增加一次觀看量)
 
-![](https://i.imgur.com/J85beMB.gif)
+![2021-06-17 10-48-36~7](https://user-images.githubusercontent.com/76476400/122435097-456c4900-cfca-11eb-855e-5ade63e1a7ea.gif)
 
 ### 文件目錄
 
