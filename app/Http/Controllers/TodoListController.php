@@ -30,7 +30,7 @@ class TodoListController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'is_doned' => "boolean",
+            'is_done' => "boolean",
             'description' => "required|string|max:255"
         ]);
 
@@ -51,7 +51,7 @@ class TodoListController extends Controller
     {
         $query = TodoList::where(['user_id' => $request->user()->id, 'id' => $id]);
 
-        ($query->count() <= 0) ?: $query->update(['is_doned' => $request->is_doned]);
+        ($query->count() <= 0) ?: $query->update(['is_done' => $request->is_done]);
 
         return back(303);
     }

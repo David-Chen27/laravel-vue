@@ -11,7 +11,7 @@ class TodoList extends Model
 
     protected $fillable = [
         'user_id',
-        'is_doned',
+        'is_done',
         'description'
     ];
 }
