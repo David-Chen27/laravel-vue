@@ -13,7 +13,7 @@
                 <img class="h-full w-full object-cover md:w-48" :src="item.image + '?random=' + item.id">
               </div>
               <div class="p-8">
-                <a href="#" @click="showCommunityModal(item)" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{item.title}}</a>
+                <a href="#" @click="showCommunityModal(item.id)" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{item.title}}</a>
                 <p class="mt-2 text-gray-500 md:h-24 overflow-hidden">{{item.description}}</p>
               </div>
             </div>
@@ -38,7 +38,7 @@ export default {
     CommunityModal,
   },
   props: [
-      "communities",
+      "communities"
   ],
   data() {
     return {
@@ -46,13 +46,14 @@ export default {
     }
   },
   methods:{
-      showCommunityModal(item) {
-        this.showCommunityBeingModal = item
+      showCommunityModal(id) {
+        axios.get(route('community.show', id))
+          .then((res) => {
+            this.showCommunityBeingModal = res.data
 
-        axios.post('/community', {
-          "type" : "count",
-          "id" : item.id
-        })
+            axios.post('/community', {"type" : "count", "id" : id})
+              .then(() => { this.showCommunityBeingModal.count += 1})
+          })
       }
   }
 }

@@ -34,6 +34,7 @@ Route::group(["middleware" => ['auth:sanctum', 'verified']], function (){
     })->name('dashboard');
 
     Route::get('/community', [CommunityController::class, 'index'])->name('community.index');
+    Route::get('/community/{id}', [CommunityController::class, 'show'])->name('community.show');
 
     Route::middleware(['throttle:article'])->post('/community', [CommunityController::class, 'statistics']);
 

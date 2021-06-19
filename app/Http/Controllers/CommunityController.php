@@ -17,7 +17,7 @@ class CommunityController extends Controller
     public function index()
     {
         return Inertia::render('Community/index',[
-            'communities' => Community::all()
+            'communities' => Community::all(['id', 'title', 'description', 'image'])
         ]);
     }
 
@@ -50,7 +50,13 @@ class CommunityController extends Controller
      */
     public function show($id)
     {
-        //
+        $find = Community::select(['title', 'description', 'content', 'image', 'count'])->find($id);
+
+        if (!$find){
+            return response('empty data.', 404);
+        }
+
+        return response()->json($find);
     }
 
     /**

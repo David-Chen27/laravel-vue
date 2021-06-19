@@ -12,8 +12,19 @@
             <img class="h-full w-full object-cover md:w-full" :src="'https://picsum.photos/768/1024?random=' + show.id">
           </div>
           <div class="md:flex-auto p-8 md:w-full md:max-w-screen-lg">
-            <p class="block mt-1 text-lg leading-tight font-medium text-black">{{show.title}}</p>
-            <p class="mt-2 text-gray-500">{{show.content}}</p>
+            <div class="flex flex-col">
+              <div class="flex-col">
+                <p class="block mt-1 text-lg leading-tight font-medium text-black">{{ show.title }}</p>
+                <p class="mt-2 text-gray-500">{{ show.content }}</p>
+              </div>
+              <div class="flex-col h-10 my-5">
+                <span class="float-right ml-1 oldstyle-nums font-mono font-bold text-gray-500">{{ show.count }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 strock-current text-gray-500 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
     </Modal>
