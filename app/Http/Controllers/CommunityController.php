@@ -50,7 +50,7 @@ class CommunityController extends Controller
      */
     public function show($id)
     {
-        $find = Community::select(['title', 'description', 'content', 'image', 'count'])->find($id);
+        $find = Community::select(['id', 'title', 'description', 'content', 'image', 'count'])->find($id);
 
         if (!$find){
             return response('empty data.', 404);
