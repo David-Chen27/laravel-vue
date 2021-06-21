@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\TodoListController;
+use App\Models\User;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,6 +27,11 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/guest', function () {
+    Auth::login(User::factory()->create());
+    return redirect("/dashboard");
+})->name('guest');
 
 
 Route::group(["middleware" => ['auth:sanctum', 'verified']], function (){
