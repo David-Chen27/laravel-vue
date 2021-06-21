@@ -4,7 +4,7 @@
         <div v-if="canLogin" class="fixed top-0 right-0 px-6 py-4">
           <jet-dropdown align="right" width="48">
             <template #trigger>
-              <span v-else class="inline-flex rounded-md">
+              <span class="inline-flex rounded-md">
                 <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-white focus:outline-none focus:bg-white focus:text-gray-500 transition">
                   <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -36,7 +36,7 @@
 
               <template v-else>
                 <div class="block px-4 py-2 text-xs text-gray-500">
-                  <span v-else>
+                  <span>
                     Hi~ 您可以選擇訪客瀏覽
                   </span>
                 </div>
