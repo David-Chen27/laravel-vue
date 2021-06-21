@@ -1,19 +1,62 @@
 <template>
     <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-        <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-            <inertia-link v-if="$page.props.user" href="/dashboard" class="text-sm text-gray-700 underline">
-                Dashboard
-            </inertia-link>
-
-            <template v-else>
-                <inertia-link :href="route('login')" class="text-sm text-gray-700 underline">
-                    Log in
-                </inertia-link>
-
-                <inertia-link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-gray-700 underline">
-                    Register
-                </inertia-link>
+        <!-- Hamburger -->
+        <div v-if="canLogin" class="fixed top-0 right-0 px-6 py-4">
+          <jet-dropdown align="right" width="48">
+            <template #trigger>
+              <span v-else class="inline-flex rounded-md">
+                <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-white focus:outline-none focus:bg-white focus:text-gray-500 transition">
+                  <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              </span>
             </template>
+
+            <template #content>
+
+              <template v-if="$page.props.user">
+                <div class="block px-4 py-2 text-xs text-gray-500">
+                    您好! {{$page.props.user.name}}
+                </div>
+
+                <jet-dropdown-link href="/dashboard">
+                  Dashboard
+                </jet-dropdown-link>
+
+                <div class="border-t border-gray-100"></div>
+
+                <!-- Authentication -->
+                <form @submit.prevent="logout">
+                  <jet-dropdown-link as="button">
+                    Log Out
+                  </jet-dropdown-link>
+                </form>
+              </template>
+
+              <template v-else>
+                <div class="block px-4 py-2 text-xs text-gray-500">
+                  <span v-else>
+                    Hi~ 您可以選擇訪客瀏覽
+                  </span>
+                </div>
+
+                <jet-dropdown-link :href="route('login')">
+                  Log in
+                </jet-dropdown-link>
+
+                <jet-dropdown-link v-if="canRegister" :href="route('register')">
+                  Register
+                </jet-dropdown-link>
+
+                <div class="border-t border-gray-100"></div>
+
+                <jet-dropdown-link :href="route('guest')">
+                  Guest
+                </jet-dropdown-link>
+              </template>
+            </template>
+          </jet-dropdown>
         </div>
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
@@ -175,12 +218,28 @@
 </style>
 
 <script>
+    import Button from "../Jetstream/Button"
+    import JetDropdown from '@/Jetstream/Dropdown'
+    import JetDropdownLink from '@/Jetstream/DropdownLink'
+
     export default {
         props: {
             canLogin: Boolean,
             canRegister: Boolean,
             laravelVersion: String,
             phpVersion: String,
+        },
+
+        components: {
+          Button,
+          JetDropdown,
+          JetDropdownLink,
+        },
+
+        methods: {
+          logout() {
+            this.$inertia.post(route('logout'));
+          },
         }
     }
 </script>
