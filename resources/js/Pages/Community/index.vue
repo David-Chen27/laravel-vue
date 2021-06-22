@@ -23,7 +23,7 @@
 
 
       <!-- Delete Token Confirmation Modal -->
-      <community-modal :show="showCommunityBeingModal" @close="showCommunityBeingModal = null" />
+      <community-modal :show="showCommunityBeingModal" :modify_count="modify_count" @close="showCommunityBeingModal = null" />
     </app-layout>
 </template>
 
@@ -43,16 +43,21 @@ export default {
   data() {
     return {
       showCommunityBeingModal: null,
+      modify_count: false,
     }
   },
   methods:{
       showCommunityModal(id) {
         axios.get(route('community.show', id))
           .then((res) => {
+            this.modify_count = false;
             this.showCommunityBeingModal = res.data
 
             axios.post('/community', {"type" : "count", "id" : id})
-              .then(() => { this.showCommunityBeingModal.count += 1})
+              .then(() => {
+                this.modify_count = true;
+                this.showCommunityBeingModal.count += 1
+              })
           })
       }
   }
