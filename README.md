@@ -12,6 +12,7 @@
 ## 介紹
 
 * 此項目主要是在實作 `Laravel 8`  搭配 `Vue` 框架、 `Tailwind` CSS 的功能練習
+* 首頁右上方選單選擇訪客登入或者註冊帳號即可瀏覽功能
 
 ### 實作
 * [Community](#Community)
