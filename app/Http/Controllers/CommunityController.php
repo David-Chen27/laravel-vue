@@ -17,7 +17,7 @@ class CommunityController extends Controller
     public function index()
     {
         return Inertia::render('Community/index',[
-            'communities' => Community::all(['id', 'title', 'description', 'image'])
+            'communities' => Community::select(['id', 'title', 'description', 'image'])->orderBy('created_at', 'desc')->take(10)->get()
         ]);
     }
 

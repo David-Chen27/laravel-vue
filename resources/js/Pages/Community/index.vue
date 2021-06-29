@@ -6,7 +6,7 @@
         </h2>
       </template>
       <div class="py-12">
-        <div class="flex flex-wrap-reverse gap-4 justify-center">
+        <div class="flex flex-wrap gap-4 justify-center">
           <div v-for="item in communities" class="max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
             <div class="md:flex">
               <div class="md:flex-shrink-0">

@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123123123')
         ]);
         User::factory(10)->create();
-        Community::factory(10)->create();
+        Community::factory(100)->create();
     }
 }
